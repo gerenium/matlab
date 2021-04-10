@@ -1,0 +1,26 @@
+function z= Newton;
+ k=0; %итерации
+ vxy1=[1;1];
+ eps=0.00000001;
+ 
+  p=1;
+while p>eps
+    x=vxy1(1);
+    y=vxy1(2);
+    J11=-sin(x-y)+2*sin(x+y);
+    J12=sin(x-y)+2*sin(x+y);
+    J21=-sin(x)*cos(y);
+    J22=-sin(y)*cos(x);
+ 
+    J=[J11, J12; J21, J22];
+    J1=[J22, -J12; -J21, J11];
+ 
+    F=[cos(x-y)-2*cos(x+y); cos(x)*cos(y)-0.75];
+    
+    vxy2=vxy1-1/det(J)*J1*F;
+    p=sqrt((vxy2(1)-vxy1(1))^2+(vxy2(2)-vxy1(2))^2);
+    k=k+1;
+    vxy1=vxy2;
+end;
+disp(k);
+disp(vxy2);
